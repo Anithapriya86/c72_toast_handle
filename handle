@@ -1,0 +1,19 @@
+handleTransaction = async()=>{
+      var transactionMessage
+      db.collection("books").doc(this.state.scannedBookId).get()
+      .then((doc)=>{
+          //snapshot.forEach((doc)=>{
+            var book = doc.data()
+            if(book.bookAvailability){
+                this.initiateBookIssue();       
+                transactionMessage = "Book Issued"
+                ToastAndroid.show(transactionMessage, ToastAndroid.SHORT);
+                // Alert.alert(transactionMessage)
+            }
+            else{
+                this.initiateBookReturn();
+                transactionMessage = "Book Returned"
+                ToastAndroid.show(transactionMessage, ToastAndroid.SHORT);
+                // Alert.alert(transactionMessage)
+            }
+      })
